@@ -39,8 +39,28 @@ ci_np <- read_xlsx(here("data/ci_np.xlsx"))
 
 ```
 
+## Visualization: 
+
+Using ggplot2 to make visualizaions from the data -- 
+
+Makes these layer by layer to create a code layer and map them for repeatability.
+
+Here are the steps: 
+ - Tell R you're using ggplot
+ - A: What data frame are you getting the variables from?
+ - A: What variable(s) do you want to plot?
+ - A: What type of graph do you want to make using (geom_)?
+ 
+### Example of ggplot line plot for ci_np vistors X year
+
+```{r}
+# X == year
+# Y == vistors
+
+ggplot(data = ci_np, aes(x = ci_np$year, y = ci_np$visitors)) + geom_line()
 
 
 
+```
 
 

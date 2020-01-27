@@ -387,7 +387,7 @@ library(here) # install.packages(&quot;here&quot;)</code></pre>
 </div>
 <div id="data" class="section level2">
 <h2>Data:</h2>
-<p>Here we will read in the data from the <strong>California National Parks</strong> data set</p>
+<p>Here we will read in the data from the <strong>California National Parks</strong> and <strong>California Channel Islands</strong> data sets</p>
 <pre class="r"><code>ca_np &lt;- read_csv(here(&quot;data/ca_np.csv&quot;))</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
@@ -400,7 +400,21 @@ library(here) # install.packages(&quot;here&quot;)</code></pre>
 ##   year = col_double()
 ## )</code></pre>
 <pre class="r"><code>#alternative code -- omit &#39;here&#39; but then will be filepath specific
-#alternative code 2 -- nere(&quot;data&quot;,&quot;ca_np.csv&quot;)</code></pre>
+#alternative code 2 -- nere(&quot;data&quot;,&quot;ca_np.csv&quot;)
+
+ci_np &lt;- read_xlsx(here(&quot;data/ci_np.xlsx&quot;))
+#alternative code -- call read_excel instead</code></pre>
+</div>
+<div id="visualization" class="section level2">
+<h2>Visualization:</h2>
+<p>Using ggplot2 to make visualizaions from the data –</p>
+<p>Makes these layer by layer to create a code layer and map them for repeatability.</p>
+<p>Here are the steps: - Tell R you’re using ggplot - A: What data frame are you getting the variables from? - A: What variable(s) do you want to plot? - A: What type of graph do you want to make using (geom_)?</p>
+<div id="example-of-ggplot-line-plot-for-ci_np-vistors-x-year" class="section level3">
+<h3>Example of ggplot line plot for ci_np vistors X year</h3>
+<pre class="r"><code># X == year
+# Y == vistors</code></pre>
+</div>
 </div>
 
 
