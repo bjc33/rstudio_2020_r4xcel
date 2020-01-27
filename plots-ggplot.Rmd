@@ -63,4 +63,21 @@ ggplot(data = ci_np, aes(x = ci_np$year, y = ci_np$visitors)) + geom_line()
 
 ```
 
+```{r}
+# making base layer for ci_np viz
+
+gg_base <- ggplot(data = ci_np, aes(x = ci_np$year, y = ci_np$visitors))
+
+gg_base + geom_point()
+
+```
+
+
+
+
+
+
+
+
+
 
