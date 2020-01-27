@@ -73,6 +73,45 @@ gg_base + geom_point()
 ```
 
 
+### Customization of visualizations
+
+Here we will learn about how to customize elements of the visualizations
+
+We can update:
+ - Line or point colors: color
+ - Change line type: linetype
+ - Change fill: fill 
+
+
+```{r}
+gg_base + 
+  geom_point(
+    color = "dodgerblue",
+    pch = 13, 
+    size = 3
+    
+  )
+# updating based on constants gives the output below
+
+```
+
+### Update the graph aesthetics based on variables
+
+Here we will create changes based on the continuous variable of **vistors**
+
+
+```{r}
+
+gg_base + 
+  geom_point(
+    aes(size = ci_np$visitors, 
+        color = ci_np$year), 
+    pch = 8
+        
+  )
+
+```
+
 
 
 
