@@ -180,6 +180,20 @@ ggsave(plot= my_np_graph, here("figures/np_graph1.png"))
 
 
 
+## Pivot Tables - pots-ability with Lawbsta data
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
