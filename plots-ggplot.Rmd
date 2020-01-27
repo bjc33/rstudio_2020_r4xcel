@@ -33,6 +33,8 @@ ca_np <- read_csv(here("data/ca_np.csv"))
 #alternative code -- omit 'here' but then will be filepath specific
 #alternative code 2 -- nere("data","ca_np.csv")
 
+ci_np <- read_xlsx(here("data/ci_np.xlsx"))
+
 ```
 
 
