@@ -1,0 +1,6 @@
+---
+title: "Creating Visualizations with ggplot"
+author: "Benjamin Cassidy"
+date: "1/27/2020"
+output: html_document
+---
