@@ -5,3 +5,34 @@ date: "1/27/2020"
 output: html_document
 ---
 
+
+## Set-up Documentation - Packages
+```{r}
+
+library(tidyverse) #install.packages("tidyverse")
+library(readxl) #install.packages("readxl")
+library(skimr) #install.packages("skimr")
+library(kableExtra) #install.packages("kableExtra")
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
