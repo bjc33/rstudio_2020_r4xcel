@@ -12,10 +12,23 @@ output: html_document
 library(tidyverse) #install.packages("tidyverse")
 library(readxl) #install.packages("readxl")
 library(skimr) #install.packages("skimr")
+library(here) #install.packages("here")
 library(kableExtra) #install.packages("kableExtra")
 
 ```
 
+## Data
+
+Lobster Data will be read in here
+
+```{r}
+
+lobsters <- read_xlsx(here("data","lobsters.xlsx"), 
+                      skip = 4)
+
+head(lobsters)
+
+```
 
 
 
