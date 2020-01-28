@@ -186,6 +186,73 @@ it_fish
 
 ## Joins to merge df 
 
+Creates opportunities to make deliberate choices about a new table
+
+Option 1: 
+ - `full_join` - gives a complete merge; these are the same as SQL
+  - `full_join(x,y, by = c("Species","Year"))`
+
+
+#### Example 1: use the abur df to merge to fish df with full merge on `year` and `site`
+
+```{r full_join_abur}
+
+abur_kelfish <- kelp_abur %>% 
+  full_join(fish, by = c("year","site"))
+
+abur_kelfish
+
+
+```
+
+
+Option 2: 
+ - `left_join` - gives a match from 2nd df only if on the 1st df
+   - `left_join(x,y, by = c("Species","Year"))`
+ 
+ 
+#### Example 2: use the abur df to merge to fish df with left merge on `year` and `site`
+
+```{r left_join_abur}
+
+left_kelfish <- kelp_abur %>% 
+  left_join(fish, by = c("year","site"))
+
+left_kelfish
+
+
+```
+
+
+Option 3: 
+ - `right_join` - gives a match from 1st df only if on the 2nd df
+   - `right_join(x,y, by = c("Species","Year"))`
+ 
+ 
+No example;
+
+
+
+Option 4: 
+ - `inner_join` - gives a match with complete match on both
+   - `inner_join(x,y, by = c("Species","Year"))`
+ 
+ 
+#### Example 3: use the abur df to merge to fish df with inner merge on `year` and `site`
+```{r inner_join_abur}
+
+inner_kelfish <- kelp_abur %>% 
+  inner_join(fish, by = c("year","site"))
+
+inner_kelfish
+
+
+```
+
+
+
+
+
 
 
 
