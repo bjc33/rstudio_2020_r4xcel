@@ -87,7 +87,42 @@ lobsta_site_year_sum %>%
 There are `r nrow(lobsters)` total lobsters included in this report. 
 
 
+## Analysis
+Here we will:
+ - Build a median lobster size for each site and year 
+ - Create a ggplot and save it
 
+
+### Lobster Size Median by site
+```{r median_lobster_size}
+
+#lobsta_site_year_sum
+
+
+lobsta_med <-
+  lobsta_site_year_sum %>% 
+  group_by(site,year) %>% 
+  summarise(mean_site_size_mm = round(mean(mean_size_mm, na.rm = TRUE),2),
+                     )
+
+lobsta_med %>%
+  kable()
+
+
+```
+
+### ggplot of median lobster size
+```{r med_lobsta_plot}
+
+lobsta_plot <-  ggplot(data = lobsta_med, aes(x=year, y = mean_site_size_mm)) 
+
+
+
+lobsta_plot + geom_line(aes(color = site)) + theme_linedraw()
+    
+ggsave(here("figures","lobsta_plot.png"))
+
+```
 
 
 
