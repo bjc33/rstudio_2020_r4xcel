@@ -14,8 +14,8 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE)
 library(tidyverse) #install.packages("tidyverse")
 library(janitor) #install.packages("janitor")
 library(readxl) #install.packages("readxl")
-#library(skimr) #install.packages("skimr")
 library(here) #install.packages("here")
+#library(skimr) #install.packages("skimr")
 #library(kableExtra) #install.packages("kableExtra")
 
 
@@ -33,6 +33,174 @@ inverts <- read_xlsx(here("data","inverts.xlsx"))
 head(inverts)
 
 ```
+
+
+
+
+## Tidying data with `pivot_longer()`
+```{r pivot_longer_table}
+
+inverts_long <- pivot_longer(data = inverts,
+             cols = c('2016','2017','2018'), #alternative code -- cols = '2016':'2018' to call in series
+             names_to = 'year',
+             values_to = 'obs_count')
+
+inverts_long
+
+```
+
+## Tidying data with `pivot_wider()`
+```{r pivot_wider_table}
+
+inverts_wide <- inverts_long %>% 
+  pivot_wider(names_from = common_name, 
+                     values_from = obs_count)
+
+inverts_wide
+
+```
+
+
+## Tidying data with `janitor::clean_names()`
+
+Remove spaces from the column names. 
+
+Defaults to lowercase snakecase columns
+
+
+```{r janitor_clean_names}
+
+inverts_wide <- inverts_wide %>% janitor::clean_names()
+
+inverts_wide
+
+
+
+```
+
+
+
+## Tidying data with `tidyr::unite()`
+
+Combines information from columns in a table
+
+```{r unite_site_year}
+
+#create a single column called site_year
+
+inverts_unite <- inverts_long %>% unite(col = "site_year",
+                                        c(site,year),
+                                        sep = "_")
+
+
+inverts_unite
+
+```
+
+
+### EXAMPLE - Creating a month-year column with a '/' separator
+
+```{r mon_year_ex}
+
+inverts_moyr <- inverts_long %>% unite(col = "mo_yr",
+                                        c(year,month),
+                                        sep = "/") 
+
+inverts_moyr
+
+
+#with fun separator
+
+inverts_moyr2 <- inverts_long %>% unite(col = "mo_yr",
+                                        c(year,month),
+                                        sep = "..^o__o^..") 
+inverts_moyr2
+
+
+
+```
+
+
+
+## Pulling part data with `tidyr::separate()`
+
+Start with a combined column to create some additional column
+
+```{r pull_apart_data}
+
+inverts_sep <- inverts_unite %>% tidyr::separate(col = "site_year",
+                                                 into = c('my_site','my_year'),
+                                                 sep = '_')
+
+
+
+inverts_sep
+
+```
+
+
+## Taking notes on a criminal conspiracy with `stringR` Bell
+
+
+Use `diplyr::mutate` and `stringR`
+
+
+### Column mutation
+Using `trees` as an example dataset
+
+```{r trees_high_five}
+# create new column
+
+tree_five_on_it <- trees %>% mutate(high_five = Height + 5)
+
+tree_five_on_it
+
+# mutate does overwrite existing columns
+
+tree_five_effd <- tree_five_on_it %>% mutate(Height = Height + 10)
+
+tree_five_effd
+
+
+```
+
+### StringR `str_replace()` 
+
+Replacing column values 
+
+```{r ca_fishes}
+
+ca_abbr <- inverts %>% mutate(common_name = 
+                                str_replace(common_name, 
+                                            pattern = "california",
+                                            replacement = "CA"))
+
+ca_abbr
+
+
+```
+
+#### Example: Replacing Spiny with Delicious
+
+```{r delicious}
+
+delicious_inverts <- ca_abbr %>%  mutate(common_name = 
+                                str_replace(common_name, 
+                                            pattern = "spiny",
+                                            replacement = "DELICIOUS"))
+
+
+delicious_inverts
+```
+
+
+
+
+
+
+
+
+
 
 
 
