@@ -84,7 +84,7 @@ lobsta_site_year_sum %>%
 
 ```
 
-
+There are `r nrow(lobsters)` total lobsters included in this report. 
 
 
 
