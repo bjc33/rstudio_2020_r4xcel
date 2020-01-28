@@ -1,0 +1,40 @@
+---
+title: "Kelp! I Need Somebody..."
+author: "Benjamin Cassidy"
+date: "1/28/2020"
+output: html_document
+---
+
+
+
+## Set-up Documentation - Packages
+```{r package_installs, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+
+
+library(tidyverse) #install.packages("tidyverse")
+library(janitor) #install.packages("janitor")
+library(readxl) #install.packages("readxl")
+library(here) #install.packages("here")
+#library(skimr) #install.packages("skimr")
+#library(kableExtra) #install.packages("kableExtra")
+
+
+```
+
+
+## Data
+
+Inverts Data will be read in here
+
+```{r data_load}
+
+kelp <- read_xlsx(here("data","kelp_fronds.xlsx"))
+
+head(kelp)
+
+```
+
+
+
+
