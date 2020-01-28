@@ -5,19 +5,24 @@ date: "1/28/2020"
 output: html_document
 ---
 
-
-
-## Set-up Documentation - Packages
-```{r package_installs, include=FALSE}
+```{r echo_location, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE)
 
 
+```
+
+![Parts of Kelp](kelp2.jpg) 
+
+
+## Set-up Documentation - Packages
+```{r package_installs, include=TRUE}
+
 library(tidyverse) #install.packages("tidyverse")
-library(janitor) #install.packages("janitor")
 library(readxl) #install.packages("readxl")
 library(here) #install.packages("here")
+library(kableExtra) #install.packages("kableExtra")
 #library(skimr) #install.packages("skimr")
-#library(kableExtra) #install.packages("kableExtra")
+#library(janitor) #install.packages("janitor")
 
 
 ```
