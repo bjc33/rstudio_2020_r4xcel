@@ -794,6 +794,30 @@ size_mm
 </table>
 <pre class="r"><code>#gives us a pretty baller summary of the data that would take a longass fricken time in SQL to write...</code></pre>
 </div>
+<div id="making-some-pinchy-pivot-tables" class="section level2">
+<h2>Making some pinchy Pivot Tables</h2>
+<p>Make R pivot tables like this: <code>group_by() %&gt;% summarize()</code></p>
+<pre class="r"><code>lobsters %&gt;% 
+  group_by(site,year) %&gt;% 
+  summarise(count_by_site_year = n())</code></pre>
+<pre><code>## # A tibble: 25 x 3
+## # Groups:   site [5]
+##    site   year count_by_site_year
+##    &lt;chr&gt; &lt;dbl&gt;              &lt;int&gt;
+##  1 aque   2012                 38
+##  2 aque   2013                 32
+##  3 aque   2014                100
+##  4 aque   2015                 83
+##  5 aque   2016                 48
+##  6 carp   2012                 78
+##  7 carp   2013                 93
+##  8 carp   2014                 79
+##  9 carp   2015                 90
+## 10 carp   2016                231
+## # ... with 15 more rows</code></pre>
+<pre class="r"><code># use ctrl+shift+m for pipe
+# n() counts observations </code></pre>
+</div>
 
 
 

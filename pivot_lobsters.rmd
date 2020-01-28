@@ -42,6 +42,22 @@ skimr::skim(lobsters)
 ```
 
 
+## Making some pinchy Pivot Tables
+
+Make R pivot tables like this: `group_by() %>% summarize()`
+
+```{r pivotRtables}
+
+lobsters %>% 
+  group_by(site,year) %>% 
+  summarise(count_by_site_year = n())
+  
+  
+# use ctrl+shift+m for pipe
+# n() counts observations 
+
+
+```
 
 
 
