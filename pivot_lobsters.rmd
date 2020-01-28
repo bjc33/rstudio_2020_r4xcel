@@ -59,7 +59,30 @@ lobsters %>%
 
 ```
 
+## Two in the pot: Summarizing by multiple variables
 
+```{r multivariate_pivot}
+
+lobsta_site_year_sum <-lobsters %>% 
+  group_by(site,year) %>% 
+  summarise(count_by_site_year = n(),
+            mean_size_mm = round(mean(size_mm, na.rm = TRUE),2),
+            stdev_size_mm = round(sd(size_mm, na.rm = TRUE), 2)
+            )
+# used round() to limit to 0.01 place for aesthetics; defaults to 0.0001 
+
+```
+
+## Table Formatting with kableExtra::kable()
+
+```{r tabley_table_formatted}
+
+lobsta_site_year_sum %>%
+  kable()
+
+
+
+```
 
 
 
