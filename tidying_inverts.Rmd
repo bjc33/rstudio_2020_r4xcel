@@ -28,8 +28,7 @@ Inverts Data will be read in here
 
 ```{r data_load}
 
-inverts <- read_xlsx(here("data","inverts.xlsx"), 
-                      skip = 4)
+inverts <- read_xlsx(here("data","inverts.xlsx"))
 
 head(inverts)
 
