@@ -250,8 +250,63 @@ inner_kelfish
 ```
 
 
+## Multi-step Plumbing 
+
+Best practice to check between each step
+
+### Create object for fish_joined for only abur, 2017
+```{r}
+
+fish_joined <- fish %>% 
+  filter(year == '2017' & site == 'abur')
+
+fish_joined 
+
+```
+
+join to the kelp_abur data with left join
+
+```{r}
+left_fish_kelp <- fish_joined %>% 
+  left_join(kelp_abur, by = c("year","site"))
+
+left_fish_kelp
+
+```
+
+add new column to calculate fish per kelp density(total_count/total_fronds
+```{r}
+
+dense_fish_kelp <- left_fish_kelp %>% 
+  mutate(fish_per_frond = total_count/total_fronds)
+
+dense_fish_kelp
+
+```
+
+make a kabletable
+
+```{r}
+
+dense_fish_kelp %>% 
+  kable() %>% 
+  kable_styling(bootstrap_options = 
+                  "striped",
+                full_width = FALSE)
+
+```
 
 
+make a column graph with x=common_name, y=fish_per_frond
+
+```{r}
+
+ggplot(dense_fish_kelp, 
+       aes(x = common_name,y = fish_per_frond)) +
+         geom_col(aes(fill = common_name))
+
+
+```
 
 
 
