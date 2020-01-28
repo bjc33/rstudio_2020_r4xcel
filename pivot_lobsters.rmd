@@ -5,9 +5,11 @@ date: "1/27/2020"
 output: html_document
 ---
 
+![Lobster](lobster.jpg) 
+
 
 ## Set-up Documentation - Packages
-```{r}
+```{r package_installs}
 
 library(tidyverse) #install.packages("tidyverse")
 library(readxl) #install.packages("readxl")
@@ -21,7 +23,7 @@ library(kableExtra) #install.packages("kableExtra")
 
 Lobster Data will be read in here
 
-```{r}
+```{r data_load}
 
 lobsters <- read_xlsx(here("data","lobsters.xlsx"), 
                       skip = 4)
@@ -30,6 +32,14 @@ head(lobsters)
 
 ```
 
+## Viewing data with SkimR
+
+```{r skimR_output}
+
+skimr::skim(lobsters)
+#gives us a pretty baller summary of the data that would take a longass fricken time in SQL to write...
+
+```
 
 
 
