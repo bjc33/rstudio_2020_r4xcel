@@ -385,15 +385,266 @@ library(kableExtra) #install.packages(&quot;kableExtra&quot;)
 <div id="data" class="section level2">
 <h2>Data</h2>
 <p>Inverts Data will be read in here</p>
-<pre class="r"><code>kelp &lt;- read_xlsx(here(&quot;data&quot;,&quot;kelp_fronds.xlsx&quot;))
+<pre class="r"><code>fish &lt;- read.csv(here(&quot;data&quot;,&quot;fish.csv&quot;))
 
-head(kelp)</code></pre>
+kelp_abur &lt;- read_excel(here(&quot;data&quot;,&quot;kelp_fronds.xlsx&quot;),
+                        sheet = &quot;abur&quot;)
+
+fish</code></pre>
+<pre><code>##    year site     common_name total_count
+## 1  2016 abur black surfperch           2
+## 2  2016 abur      blacksmith           1
+## 3  2016 abur       garibaldi           1
+## 4  2016 abur     rock wrasse           2
+## 5  2016 abur        senorita          58
+## 6  2016 aque black surfperch           1
+## 7  2016 aque      blacksmith           1
+## 8  2016 aque       garibaldi           1
+## 9  2016 aque     rock wrasse           1
+## 10 2016 aque        senorita          57
+## 11 2016 mohk black surfperch           1
+## 12 2016 mohk      blacksmith           1
+## 13 2016 mohk       garibaldi           2
+## 14 2016 mohk     rock wrasse          17
+## 15 2016 mohk        senorita           4
+## 16 2017 abur black surfperch           4
+## 17 2017 abur      blacksmith           1
+## 18 2017 abur       garibaldi           1
+## 19 2017 abur     rock wrasse          57
+## 20 2017 abur        senorita          64
+## 21 2017 aque black surfperch           1
+## 22 2017 aque      blacksmith           1
+## 23 2017 aque       garibaldi           1
+## 24 2017 aque     rock wrasse           1
+## 25 2017 aque        senorita           1
+## 26 2017 mohk black surfperch          50
+## 27 2017 mohk      blacksmith           8
+## 28 2017 mohk       garibaldi           6
+## 29 2017 mohk     rock wrasse           4
+## 30 2017 mohk        senorita          31
+## 31 2018 abur black surfperch           1
+## 32 2018 abur      blacksmith           1
+## 33 2018 abur       garibaldi           1
+## 34 2018 abur     rock wrasse           1
+## 35 2018 abur        senorita           1
+## 36 2018 aque black surfperch           2
+## 37 2018 aque      blacksmith           1
+## 38 2018 aque       garibaldi           1
+## 39 2018 aque     rock wrasse           4
+## 40 2018 aque        senorita          36
+## 41 2018 mohk black surfperch          32
+## 42 2018 mohk      blacksmith          31
+## 43 2018 mohk       garibaldi          10
+## 44 2018 mohk     rock wrasse           4
+## 45 2018 mohk        senorita           4</code></pre>
+<pre class="r"><code>kelp_abur</code></pre>
 <pre><code>## # A tibble: 3 x 4
 ##    year month site  total_fronds
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;
 ## 1  2016     7 abur            23
 ## 2  2017     7 abur            17
 ## 3  2018     7 abur          1155</code></pre>
+</div>
+<div id="filtering-features" class="section level2">
+<h2>Filtering Features</h2>
+<p>Exact match: <code>==</code></p>
+<div id="example-1-only-keep-obs-form-fish-that-has-obs-of-garibaldi" class="section level4">
+<h4>Example 1: Only keep obs form <code>fish</code> that has obs of <code>garibaldi</code></h4>
+<pre class="r"><code>fish_garibaldi &lt;- fish %&gt;% 
+  filter(common_name == &quot;garibaldi&quot;)
+
+fish_garibaldi</code></pre>
+<pre><code>##   year site common_name total_count
+## 1 2016 abur   garibaldi           1
+## 2 2016 aque   garibaldi           1
+## 3 2016 mohk   garibaldi           2
+## 4 2017 abur   garibaldi           1
+## 5 2017 aque   garibaldi           1
+## 6 2017 mohk   garibaldi           6
+## 7 2018 abur   garibaldi           1
+## 8 2018 aque   garibaldi           1
+## 9 2018 mohk   garibaldi          10</code></pre>
+<p>Other operators <code>&gt;,&lt;,&gt;=,&lt;=</code></p>
+</div>
+<div id="example-2-only-keep-obs-with-50-or-greater" class="section level4">
+<h4>Example 2: Only keep obs with 50 or greater</h4>
+<pre class="r"><code>filter_over_fifty &lt;- fish %&gt;% 
+  filter(total_count &gt;= 50)
+
+
+filter_over_fifty </code></pre>
+<pre><code>##   year site     common_name total_count
+## 1 2016 abur        senorita          58
+## 2 2016 aque        senorita          57
+## 3 2017 abur     rock wrasse          57
+## 4 2017 abur        senorita          64
+## 5 2017 mohk black surfperch          50</code></pre>
+<p>Using <code>OR</code> statement filters</p>
+<p>Can use the <code>|</code> for <code>OR</code> operators</p>
+</div>
+<div id="example-3-use-or-to-find-garibaldiblacksmith" class="section level4">
+<h4>Example 3: Use OR to find <code>garibaldi|blacksmith</code></h4>
+<pre class="r"><code>fish2spec &lt;- fish %&gt;% 
+  filter(common_name == &#39;garibaldi&#39;|common_name ==&#39;blacksmith&#39;)
+
+fish2spec</code></pre>
+<pre><code>##    year site common_name total_count
+## 1  2016 abur  blacksmith           1
+## 2  2016 abur   garibaldi           1
+## 3  2016 aque  blacksmith           1
+## 4  2016 aque   garibaldi           1
+## 5  2016 mohk  blacksmith           1
+## 6  2016 mohk   garibaldi           2
+## 7  2017 abur  blacksmith           1
+## 8  2017 abur   garibaldi           1
+## 9  2017 aque  blacksmith           1
+## 10 2017 aque   garibaldi           1
+## 11 2017 mohk  blacksmith           8
+## 12 2017 mohk   garibaldi           6
+## 13 2018 abur  blacksmith           1
+## 14 2018 abur   garibaldi           1
+## 15 2018 aque  blacksmith           1
+## 16 2018 aque   garibaldi           1
+## 17 2018 mohk  blacksmith          31
+## 18 2018 mohk   garibaldi          10</code></pre>
+<p>Using the <code>%in%</code> operator</p>
+<p>Matches against a vector with multiple values</p>
+<pre class="r"><code>fish_sp &lt;- c(&#39;garibaldi&#39;,&#39;blacksmith&#39;,&#39;black surfperch&#39;)
+
+fish_3sp &lt;- fish %&gt;% 
+    filter(common_name %in% fish_sp)
+
+
+fish_3sp</code></pre>
+<pre><code>##    year site     common_name total_count
+## 1  2016 abur black surfperch           2
+## 2  2016 abur      blacksmith           1
+## 3  2016 abur       garibaldi           1
+## 4  2016 aque black surfperch           1
+## 5  2016 aque      blacksmith           1
+## 6  2016 aque       garibaldi           1
+## 7  2016 mohk black surfperch           1
+## 8  2016 mohk      blacksmith           1
+## 9  2016 mohk       garibaldi           2
+## 10 2017 abur black surfperch           4
+## 11 2017 abur      blacksmith           1
+## 12 2017 abur       garibaldi           1
+## 13 2017 aque black surfperch           1
+## 14 2017 aque      blacksmith           1
+## 15 2017 aque       garibaldi           1
+## 16 2017 mohk black surfperch          50
+## 17 2017 mohk      blacksmith           8
+## 18 2017 mohk       garibaldi           6
+## 19 2018 abur black surfperch           1
+## 20 2018 abur      blacksmith           1
+## 21 2018 abur       garibaldi           1
+## 22 2018 aque black surfperch           2
+## 23 2018 aque      blacksmith           1
+## 24 2018 aque       garibaldi           1
+## 25 2018 mohk black surfperch          32
+## 26 2018 mohk      blacksmith          31
+## 27 2018 mohk       garibaldi          10</code></pre>
+</div>
+<div id="example-4-match-year-2016-or-the-common_name-is-garibaldi" class="section level4">
+<h4>Example 4: Match year 2016, or the common_name is <code>garibaldi</code></h4>
+<pre class="r"><code>fish_sp_yr &lt;- fish %&gt;% 
+  filter(year == &#39;2016&#39; | common_name == &#39;garibaldi&#39;)
+
+fish_sp_yr </code></pre>
+<pre><code>##    year site     common_name total_count
+## 1  2016 abur black surfperch           2
+## 2  2016 abur      blacksmith           1
+## 3  2016 abur       garibaldi           1
+## 4  2016 abur     rock wrasse           2
+## 5  2016 abur        senorita          58
+## 6  2016 aque black surfperch           1
+## 7  2016 aque      blacksmith           1
+## 8  2016 aque       garibaldi           1
+## 9  2016 aque     rock wrasse           1
+## 10 2016 aque        senorita          57
+## 11 2016 mohk black surfperch           1
+## 12 2016 mohk      blacksmith           1
+## 13 2016 mohk       garibaldi           2
+## 14 2016 mohk     rock wrasse          17
+## 15 2016 mohk        senorita           4
+## 16 2017 abur       garibaldi           1
+## 17 2017 aque       garibaldi           1
+## 18 2017 mohk       garibaldi           6
+## 19 2018 abur       garibaldi           1
+## 20 2018 aque       garibaldi           1
+## 21 2018 mohk       garibaldi          10</code></pre>
+<p>Using the <code>&amp;</code> operator</p>
+<p>May use <code>&amp;</code> or <code>,</code></p>
+<pre class="r"><code>fish_aq_18 &lt;- fish %&gt;% 
+  filter(year == &#39;2018&#39; &amp; site == &#39;aque&#39;)
+
+fish_aq_18 </code></pre>
+<pre><code>##   year site     common_name total_count
+## 1 2018 aque black surfperch           2
+## 2 2018 aque      blacksmith           1
+## 3 2018 aque       garibaldi           1
+## 4 2018 aque     rock wrasse           4
+## 5 2018 aque        senorita          36</code></pre>
+<p>To exclude things – <code>!=</code> operator</p>
+<p>Same deal. No example.</p>
+</div>
+</div>
+<div id="using-stringrstr_dectect" class="section level2">
+<h2>Using <code>stringr::str_dectect()</code></h2>
+<p>Finding stuff <strong>like</strong> a value with <code>str_dectect()</code></p>
+<pre class="r"><code>blk_fish &lt;- fish %&gt;% 
+  filter(stringr::str_detect(
+    common_name, pattern = &quot;black&quot;
+  ))
+
+blk_fish</code></pre>
+<pre><code>##    year site     common_name total_count
+## 1  2016 abur black surfperch           2
+## 2  2016 abur      blacksmith           1
+## 3  2016 aque black surfperch           1
+## 4  2016 aque      blacksmith           1
+## 5  2016 mohk black surfperch           1
+## 6  2016 mohk      blacksmith           1
+## 7  2017 abur black surfperch           4
+## 8  2017 abur      blacksmith           1
+## 9  2017 aque black surfperch           1
+## 10 2017 aque      blacksmith           1
+## 11 2017 mohk black surfperch          50
+## 12 2017 mohk      blacksmith           8
+## 13 2018 abur black surfperch           1
+## 14 2018 abur      blacksmith           1
+## 15 2018 aque black surfperch           2
+## 16 2018 aque      blacksmith           1
+## 17 2018 mohk black surfperch          32
+## 18 2018 mohk      blacksmith          31</code></pre>
+<div id="example-5-subset-by-string-it" class="section level4">
+<h4>Example 5: Subset by string <code>it</code></h4>
+<pre class="r"><code>it_fish &lt;- fish %&gt;% 
+  filter(stringr::str_detect(
+    common_name, pattern = &quot;it&quot;
+  ))
+
+it_fish</code></pre>
+<pre><code>##    year site common_name total_count
+## 1  2016 abur  blacksmith           1
+## 2  2016 abur    senorita          58
+## 3  2016 aque  blacksmith           1
+## 4  2016 aque    senorita          57
+## 5  2016 mohk  blacksmith           1
+## 6  2016 mohk    senorita           4
+## 7  2017 abur  blacksmith           1
+## 8  2017 abur    senorita          64
+## 9  2017 aque  blacksmith           1
+## 10 2017 aque    senorita           1
+## 11 2017 mohk  blacksmith           8
+## 12 2017 mohk    senorita          31
+## 13 2018 abur  blacksmith           1
+## 14 2018 abur    senorita           1
+## 15 2018 aque  blacksmith           1
+## 16 2018 aque    senorita          36
+## 17 2018 mohk  blacksmith          31
+## 18 2018 mohk    senorita           4</code></pre>
+</div>
 </div>
 
 

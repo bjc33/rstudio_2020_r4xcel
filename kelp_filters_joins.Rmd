@@ -34,11 +34,162 @@ Inverts Data will be read in here
 
 ```{r data_load}
 
-kelp <- read_xlsx(here("data","kelp_fronds.xlsx"))
+fish <- read.csv(here("data","fish.csv"))
 
-head(kelp)
+kelp_abur <- read_excel(here("data","kelp_fronds.xlsx"),
+                        sheet = "abur")
+
+fish
+kelp_abur
 
 ```
+
+
+## Filtering Features
+
+Exact match: `==`
+
+
+
+#### Example 1: Only keep obs form `fish` that has obs of `garibaldi`
+
+```{r garibaldi_filter}
+
+
+fish_garibaldi <- fish %>% 
+  filter(common_name == "garibaldi")
+
+fish_garibaldi
+
+
+```
+
+
+
+Other operators `>,<,>=,<=`
+
+#### Example 2: Only keep obs with 50 or greater
+
+```{r total_n_fifty}
+
+filter_over_fifty <- fish %>% 
+  filter(total_count >= 50)
+
+
+filter_over_fifty 
+
+```
+
+
+Using `OR` statement filters
+
+Can use the `|` for `OR` operators
+
+
+#### Example 3: Use OR to find `garibaldi|blacksmith`
+
+```{r fish2species}
+
+fish2spec <- fish %>% 
+  filter(common_name == 'garibaldi'|common_name =='blacksmith')
+
+fish2spec
+
+
+```
+
+Using the `%in%` operator
+
+Matches against a vector with multiple values
+
+```{r in_matches}
+
+
+fish_sp <- c('garibaldi','blacksmith','black surfperch')
+
+fish_3sp <- fish %>% 
+    filter(common_name %in% fish_sp)
+
+
+fish_3sp
+```
+
+
+#### Example 4: Match year 2016, or the common_name is `garibaldi`
+
+```{r year_fish_match}
+
+fish_sp_yr <- fish %>% 
+  filter(year == '2016' | common_name == 'garibaldi')
+
+fish_sp_yr 
+
+
+```
+
+
+Using the `&` operator
+
+May use `&` or `,`
+
+
+```{r aque_2018}
+
+fish_aq_18 <- fish %>% 
+  filter(year == '2018' & site == 'aque')
+
+fish_aq_18 
+
+
+
+```
+
+
+To exclude things -- `!=` operator
+
+Same deal. No example. 
+
+
+## Using `stringr::str_dectect()`
+
+Finding stuff **like** a value with `str_dectect()`
+
+
+```{r black_fish}
+
+blk_fish <- fish %>% 
+  filter(stringr::str_detect(
+    common_name, pattern = "black"
+  ))
+
+blk_fish
+
+```
+
+
+
+#### Example 5: Subset by string `it`
+
+```{r it_subs}
+
+
+it_fish <- fish %>% 
+  filter(stringr::str_detect(
+    common_name, pattern = "it"
+  ))
+
+it_fish
+
+
+```
+
+
+## Joins to merge df 
+
+
+
+
+
 
 
 
